@@ -1,4 +1,4 @@
-# Arctic sea ice concentration budgets and extent/area records in 2016
+# The Arctic sea ice cover of 2016: A year of record low highs and higher than expected lows
 **Alek Petty**
 
 *Python scripts used to produce the Arctic sea ice concentration budgets and monthly extent/area records. Results from this analysis were recently accepted for publication in The Cryosphere.*
