@@ -1,24 +1,18 @@
 ############################################################## 
-# Date: 01/01/16
-# Name: calc_cersat_driftSTORM.py
+# Date: 01/02/18
+# Name: calcIceConc.py
 # Author: Alek Petty
-# Description: Script to plot SEB data from Linette
-# Input requirements: SEB data
-# Output: map of an SEB term
-import matplotlib
-matplotlib.use("AGG")
+# Description: Script to calculate monthly sea ice concentration from daily data (e.g. NRT data)
+# Input requirements: Daily sea ice conentration data (NASA Team or Bootstrap)
+# Output: Monthly sea ice concentrations
 
+import matplotlib
 from mpl_toolkits.basemap import Basemap, shiftgrid
 import numpy as np
 from pylab import *
 from scipy.io import netcdf
 import numpy.ma as ma
-from matplotlib import rc
-from glob import glob
-from netCDF4 import Dataset
-from scipy.interpolate import griddata
-import sys
-sys.path.append('../../common/')
+
 import commonFuncs as cF
 
 dataPath = '../../../../DATA'

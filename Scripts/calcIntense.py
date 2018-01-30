@@ -1,25 +1,18 @@
 ############################################################## 
-# Date: 01/01/16
+# Date: 01/02/18
 # Name: calcIntense.py
 # Author: Alek Petty
 # Description: Script to calculate ice intensification from the daily ice concentration data
-# Input requirements: Ice concentration data (daily)
-# Output: ice intensification
+# Input requirements: Sea ice concentration data (daily)
+# Output: Monthly ice intensification estimates
 
 import matplotlib
-matplotlib.use("AGG")
-
 from mpl_toolkits.basemap import Basemap, shiftgrid
 import numpy as np
 from pylab import *
 from scipy.io import netcdf
 import numpy.ma as ma
-from matplotlib import rc
-from glob import glob
-from netCDF4 import Dataset
-from scipy.interpolate import griddata
-import sys
-sys.path.append('../../common/')
+
 import commonFuncs as cF
 
 dataPath = '../../../../DATA'

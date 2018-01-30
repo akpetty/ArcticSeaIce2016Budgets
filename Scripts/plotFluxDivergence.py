@@ -1,25 +1,20 @@
 ############################################################## 
-# Date: 01/01/16
-# Name: calc_cersat_driftSTORM.py
+# Date: 01/02/18
+# Name: plotFluxDivergence.py
 # Author: Alek Petty
-# Description: Script to plot SEB data from Linette
-# Input requirements: SEB data
-# Output: map of an SEB term
-import matplotlib
-matplotlib.use("AGG")
+# Description: Script to produce plots of monthly flux diveregence 
+# Input requirements: Flux divergence data from calcMonthlyBudgetsKimura.py
+# Output: Maps of monthly flux divergence
 
+import matplotlib
 from mpl_toolkits.basemap import Basemap, shiftgrid
 import numpy as np
 from pylab import *
 from scipy.io import netcdf
 import numpy.ma as ma
-from matplotlib import rc
-from glob import glob
-from netCDF4 import Dataset
-from scipy.interpolate import griddata
-import sys
-sys.path.append('../../common/')
+
 import commonFuncs as cF
+
 
 rcParams['ytick.major.size'] = 2
 rcParams['axes.linewidth'] = .5
@@ -52,8 +47,7 @@ FluxDiv=[]
 for month in xrange(0, 12):
 	mstr = '%02d' %(month+1)
 	dateStr=str(year)+mstr
-	#convert from per second to percent per month
-
+	
 	AdvmonthsT=load(dataOutPath+'/Advection/AdvMonths'+dxStr+dateStr+extraStr)
 	DivmonthsT=load(dataOutPath+'/Divergence/DivMonths'+dxStr+dateStr+extraStr)
 	FluxDivT=AdvmonthsT+DivmonthsT

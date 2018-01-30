@@ -1,25 +1,21 @@
 ############################################################## 
-# Date: 01/01/16
-# Name: calc_cersat_driftSTORM.py
+# Date: 01/02/18
+# Name: plotFluxDivergenceAnom.py
 # Author: Alek Petty
-# Description: Script to plot SEB data from Linette
-# Input requirements: SEB data
-# Output: map of an SEB term
+# Description: Script to produce plots of monthly flux diveregence anomalies
+# Input requirements: Flux divergence data from calcMonthlyBudgetsKimura.py
+# Output: Maps of monthly flux divergence anomalies
+
 import matplotlib
 matplotlib.use("AGG")
-
 from mpl_toolkits.basemap import Basemap, shiftgrid
 import numpy as np
 from pylab import *
 from scipy.io import netcdf
 import numpy.ma as ma
-from matplotlib import rc
-from glob import glob
-from netCDF4 import Dataset
-from scipy.interpolate import griddata
-import sys
-sys.path.append('../../common/')
+
 import commonFuncs as cF
+
 
 rcParams['ytick.major.size'] = 2
 rcParams['axes.linewidth'] = .5
@@ -30,9 +26,7 @@ rcParams['legend.fontsize']=8
 rcParams['font.size']=8 
 rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
 
-
 m = Basemap(projection='npstere',boundinglat=54,lon_0=0, resolution='l' )
-#m = Basemap(projection='npstere',boundinglat=30.52,lon_0=0, resolution='l'  )
 
 dataPath = '../../../../DATA'
 figpath='../Figures/'

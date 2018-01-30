@@ -1,24 +1,19 @@
 ############################################################## 
-# Date: 01/01/16
-# Name: calc_cersat_driftSTORM.py
+# Date: 01/02/18
+# Name: plotIntenseAnom.py
 # Author: Alek Petty
-# Description: Script to plot SEB data from Linette
-# Input requirements: SEB data
-# Output: map of an SEB term
+# Description: Script to produce plots of monthly ice intensification anomalies
+# Input requirements: Ice intensification from calcIntense.py
+# Output: Maps of ice intensification anomalies
+
 import matplotlib
 matplotlib.use("AGG")
-
 from mpl_toolkits.basemap import Basemap, shiftgrid
 import numpy as np
 from pylab import *
 from scipy.io import netcdf
 import numpy.ma as ma
-from matplotlib import rc
-from glob import glob
-from netCDF4 import Dataset
-from scipy.interpolate import griddata
-import sys
-sys.path.append('../../common/')
+
 import commonFuncs as cF
 
 rcParams['ytick.major.size'] = 2

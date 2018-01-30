@@ -1,24 +1,19 @@
 ############################################################## 
-# Date: 01/01/16
-# Name: calc_cersat_driftSTORM.py
+# Date: 01/02/18
+# Name: plotRatiosBox.py
 # Author: Alek Petty
-# Description: Script to plot SEB data from Linette
-# Input requirements: SEB data
-# Output: map of an SEB term
+# Description: Script to produce box and whisker plots of sea ice area / sea ice extent (compactness)
+# Input requirements: Sea ice area/extent data
+# Output: Box and whisker plots of sea ice compactness
+
 import matplotlib
 matplotlib.use("AGG")
-
 from mpl_toolkits.basemap import Basemap, shiftgrid
 import numpy as np
 from pylab import *
 from scipy.io import netcdf
 import numpy.ma as ma
-from matplotlib import rc
-from glob import glob
-from netCDF4 import Dataset
-from scipy.interpolate import griddata
-import sys
-sys.path.append('../../common/')
+
 import commonFuncs as cF
 
 dataPath = '../../../../DATA'
@@ -46,59 +41,8 @@ def getRatioAlek(dataOutPath, month, alg):
 	ratio=area[:, month]/extent[:, month]
 	return ratio
 
-def get_ice_extent_petty(dataOutPath, month, start_year, end_year, icetype='extent', alg=0):
-	""" Get Arctic sea ice extent using Petty/NSIDC method
 
-	Data downloaded from the NSIDC and extent caluclated using the ASI
-
-	Can also get ice area if icetype set to 'area', 
-	   but beware of variable pole hole contaminating Arctic data
-
-	"""
-
-	if (icetype=='area'):
-		typeStr='Area'
-	else:
-		typeStr='Ext'
-	extentT = loadtxt(dataOutPath+'ice'+typeStr+'Months'+str(1979)+str(2016)+'Alg-'+str(alg))[:, Month]
-	extent = extentT[start_year-1979:end_year-1979+1]
-
-	years=np.arange(start_year, end_year, 1)
-	
-
-	return years, extent
-
-def get_ice_extentN(rawdatapath, Month, start_year, end_year, icetype='extent', version='', hemStr='N'):
-	""" Get Arctic sea ice extent
-
-	Data downlaoded from the NSIDC Arctic Sea Ice Index.
-
-	Can also get ice area if icetype set to 'area', 
-	   but beware of variable pole hole contaminating Arctic data
-
-	"""
-	Month_str = '%02d' %Month
-	extent_data_path=rawdatapath+'/ICE_CONC/SeaIceIndex/'+hemStr+'_'+Month_str+'_extent_'+version+'.csv'
-	ice_extent_data=pd.read_csv(extent_data_path,names=['year', 'extent', 'area'],skiprows=1, usecols=[0, 4, 5])
-	#ice_extent_data = np.loadtxt(extent_data_path, delimiter=',',skiprows=1)
-	Extent = ice_extent_data[icetype]
-	Year = ice_extent_data['year']
-	
-	#Years=array(Year[start_year-1979:end_year-1979+1])
-	Years=array(Year[(Year>=start_year)&(Year<=end_year)])
-	Extents=array(Extent[(Year>=start_year)&(Year<=end_year)])
-
-	Years=Years[where(Extents>0)]
-	Extents=Extents[where(Extents>0)]
-
-	#Extents=ma.masked_where(Extents<0, Extents)
-	#Extent=array(Extent[start_year-1979:end_year-1979+1])
-
-	return Years, Extents
-
-
-years, extent = ff.get_ice_extentN(rawdatapath, pmonth, startYear, endYear, icetype=iceType, version='v2.1',  hemStr=hemStr)
-
+years, extent = cF.get_ice_extentN(rawdatapath, pmonth, startYear, endYear, icetype=iceType, version='v2.1',  hemStr=hemStr)
 
 
 startYear=2000
@@ -163,8 +107,6 @@ ylim(0.45, 0.95)
 
 ax1.xaxis.grid(True, linestyle='-', which='minor', color='lightgrey',
                alpha=0.5)
-
-
 
 subplots_adjust(left=0.08, right=0.98, bottom=0.12, top=0.93, hspace=0)
 
