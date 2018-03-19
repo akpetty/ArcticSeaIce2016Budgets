@@ -23,7 +23,7 @@ The gridded forecast datasets were generated from the following, publically avai
 Sea ice concentration data (NASA Team, final): http://nsidc.org/data/nsidc-0051    
 Sea ice concentration data (NASA Team, near real-time): https://nsidc.org/data/nsidc-0081   
 
-KIMURA ice drift data to be added.
+2016 KIMURA ice drifts have been added to the Data folder. The rest of the KIMURA ice drift data will be added shortly.
 
 Contact me if you any any questions (alek.a.petty@nasa.gov)!
 

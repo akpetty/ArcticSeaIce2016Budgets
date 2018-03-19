@@ -161,3 +161,31 @@ def get_pmask(year, month):
 		pmask=89.2
 	
 	return pmask
+
+def get_ice_extentN(rawdatapath, Month, start_year, end_year, icetype='extent', version='', hemStr='N'):
+	""" Get Arctic sea ice extent
+
+	Data downlaoded from the NSIDC Arctic Sea Ice Index.
+
+	Can also get ice area if icetype set to 'area', 
+	   but beware of variable pole hole contaminating Arctic data
+
+	"""
+	Month_str = '%02d' %Month
+	extent_data_path=rawdatapath+'/ICE_CONC/SeaIceIndex/'+hemStr+'_'+Month_str+'_extent_'+version+'.csv'
+	ice_extent_data=pd.read_csv(extent_data_path,names=['year', 'extent', 'area'],skiprows=1, usecols=[0, 4, 5])
+	#ice_extent_data = np.loadtxt(extent_data_path, delimiter=',',skiprows=1)
+	Extent = ice_extent_data[icetype]
+	Year = ice_extent_data['year']
+	
+	#Years=array(Year[start_year-1979:end_year-1979+1])
+	Years=array(Year[(Year>=start_year)&(Year<=end_year)])
+	Extents=array(Extent[(Year>=start_year)&(Year<=end_year)])
+
+	Years=Years[where(Extents>0)]
+	Extents=Extents[where(Extents>0)]
+
+	#Extents=ma.masked_where(Extents<0, Extents)
+	#Extent=array(Extent[start_year-1979:end_year-1979+1])
+
+	return Years, Extents
